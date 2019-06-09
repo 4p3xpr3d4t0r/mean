@@ -8,7 +8,7 @@ var countrySchema = mongoose.Schema({
     trippleRoom:{type:Number},
     singleRoomRate:{type:Number},
     doubleRoomRate:{type:Number},
-    trippleRoomrate:{type:Number},
+    trippleRoomRate:{type:Number},
     totalRooms:{type:Number}
 
 });

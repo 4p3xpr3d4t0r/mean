@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Country = require('../models/dataSchema');
+var Booking = require('../models/bookingSchema');
 
 router.post('/create',(req,res,next) => {
     var newCountry = new Country({
@@ -23,11 +24,49 @@ router.post('/create',(req,res,next) => {
     
 });
 
+router.post('/booking',(req,res,next) => {
+    var newBooking = new Booking({
+        
+        
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        date:req.body.date,
+        address:req.body.address,
+        nic:req.body.nic,
+        phoneNo:req.body.phoneNo,
+        country_id:req.body.country_id,
+    
+    });
+    newBooking.save((err,booking) => {
+        if(err)
+            res.status(500).json({errmsg : err});
+        res.status(200).json({msg:booking});
+    });
+    
+});
+
 router.get('/read',(req,res,next) => {
     Country.find({},(err,countries)=> {
         if(err)
             res.status(500).json({errmsg : err});
         res.status(200).json({msg:countries});
+    });
+});
+
+router.get('/readBooking',(req,res,next) => {
+    Booking.find({},(err,countries)=> {
+        if(err)
+            res.status(500).json({errmsg : err});
+        res.status(200).json({msg:countries});
+    });
+});
+
+router.get('/readOne/:id',(req,res,next) => {
+    Country.findOne({_id:req.params.id},(err,country) => {
+        if(err)
+            res.status(500).json({errmsg : err});
+        res.status(200).json({msg:country});
+
     });
 });
 
